@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "main" {
-  name     = "${var.prefix}-resource-group"
+  name     = var.resource_group
   location = var.location
   tags     = var.tags
 }
@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "main" {
   address_space       = ["10.0.0.0/24"]
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  tags                = var.tags
+  //tags                = var.tags
 }
 
 resource "azurerm_subnet" "main" {
@@ -24,7 +24,8 @@ resource "azurerm_subnet" "main" {
 }
 
 resource "azurerm_network_interface" "main" {
- name                = "${var.prefix}-main-nic"
+ count               = var.num_of_vms
+ name                = "${var.prefix}-${count.index}-nic"
  location            = var.location
  resource_group_name = azurerm_resource_group.main.name
 
@@ -85,13 +86,12 @@ data "azurerm_image" "image" {
 
 
 resource "azurerm_virtual_machine" "main" {
-  name                            = "${var.prefix}-vm"
+  count                           = var.num_of_vms
+  name                            = "${var.prefix}${count.index}"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
   vm_size                            = "Standard_B1s"
-  network_interface_ids = [
-    azurerm_network_interface.main.id,
-  ]
+  network_interface_ids = [element(azurerm_network_interface.main.*.id, count.index)]
 
   storage_image_reference  {
     publisher = "Canonical"
@@ -101,9 +101,9 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   os_profile {
-   computer_name  =  "NanoDegree Machine"
-   admin_username                  = var.username
-   admin_password                  = var.password
+   computer_name  =  "hostname ${count.index}"
+   admin_username                  = "testadmin"
+   admin_password                  = "Password1234"
  }
 
   os_profile_linux_config {
@@ -111,10 +111,10 @@ resource "azurerm_virtual_machine" "main" {
  }
 
   storage_os_disk  {
-    name              = "webserver-osdisk"
-    caching            = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
+   name              = "WSdisk ${count.index}"
+   caching           = "ReadWrite"
+   create_option     = "FromImage"
+   managed_disk_type = "Standard_LRS"
   }
   tags = var.tags
 }
