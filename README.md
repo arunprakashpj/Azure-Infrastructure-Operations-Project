@@ -58,6 +58,6 @@ Below is the screenshot showing the image created by packer
 
 
 Below is the screenshot taken after running ``terraform plan -out solution.plan``
-![Screenshot](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/Screenshots/TerraformApply.png)
+![Screenshot](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/Screenshots/Terraform_Apply.png)
 
 
