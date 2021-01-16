@@ -17,19 +17,22 @@ For this project, you will write a Packer template and a Terraform template to d
 4. Install [Terraform](https://www.terraform.io/downloads.html)
 
 ### Instructions
-1. Create and deploy a policy definition to deny the creation of resources that donot have tags 
+1. Create Azure credentials
+      - Create a service principal with ``az ad sp create-for-rbac`` and output the credentials
+      - Use the command ``az ad sp create-for-rbac --query "{ client_id: appId, client_secret: password, tenant_id: tenant }"``
+2. Create and deploy a policy definition to deny the creation of resources that donot have tags 
       - Create the Azure policy definition by running the shell script ``create_az_policy_definition.sh``
       - Assign the policy definition using the Azure portal
       - Verify the created policy via the Azure CLI using the command ``az policy assignment list``
    
-2. Create a server image using packer
+3. Create a server image using packer
       - Create an image resource group named PolicyRG by ``az group create --location northeurope --name PolicyRG``
       - Use the required fields in packer template file   [webserver.json](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/Packer/webserver.json)  
       - Build the packer image using the command ``packer build webserver.json``
       - Use ``az image list`` to list out the images present
       - Use ``az image delete -g packer-rg -n myPackerImage`` to delete any existing packer image
       
-3. Create the infrastructure using terraform
+4. Create the infrastructure using terraform
       - Create a terraform file  [main.tf](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/terraform/main.tf) and [variable.tf](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/terraform/variables.tf)
       - Create a Resource Group
       - Create a virtual network and a subnet on the virtual network
