@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "main" {
   address_space       = ["10.0.0.0/24"]
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  //tags                = var.tags
+  tags                = var.tags
 }
 
 resource "azurerm_subnet" "main" {
@@ -87,7 +87,7 @@ data "azurerm_image" "image" {
 
 resource "azurerm_virtual_machine" "main" {
   count                           = var.num_of_vms
-  name                            = "${var.prefix}${count.index}"
+  name                            = "${var.prefix}${count.index}-vm"
   resource_group_name             = azurerm_resource_group.main.name
   location                        = azurerm_resource_group.main.location
   vm_size                            = "Standard_B1s"
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine" "main" {
   }
 
   os_profile {
-   computer_name  =  "hostname ${count.index}"
+   computer_name  =  "hostname${count.index}"
    admin_username                  = "testadmin"
    admin_password                  = "Password1234"
  }
@@ -111,10 +111,10 @@ resource "azurerm_virtual_machine" "main" {
  }
 
   storage_os_disk  {
-   name              = "WSdisk ${count.index}"
+   name              = "WSdisk${count.index}"
    caching           = "ReadWrite"
    create_option     = "FromImage"
    managed_disk_type = "Standard_LRS"
   }
-  tags = var.tags
+ // tags = var.tags
 }
