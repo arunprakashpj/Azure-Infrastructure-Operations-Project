@@ -26,6 +26,8 @@ For this project, you will write a Packer template and a Terraform template to d
       - Create an image resource group named PolicyRG by ``az group create --location northeurope --name PolicyRG``
       - Use the required fields in packer template file   [webserver.json](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/Packer/webserver.json)  
       - Build the packer image using the command ``packer build webserver.json``
+      - Use ``az image list`` to list out the images present
+      - Use ``az image delete -g packer-rg -n myPackerImage`` to delete any existing packer image
       
 3. Create the infrastructure using terraform
       - Create a terraform file  [main.tf](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/terraform/main.tf) and [variable.tf](https://github.com/arunprakashpj/Udacity-Azure-Cloud-DevOps/blob/master/C1%20-%20Azure%20Infrastructure%20Operations/project/starter_files/terraform/variables.tf)
