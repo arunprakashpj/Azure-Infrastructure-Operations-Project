@@ -2,6 +2,7 @@
 
 az policy definition create --name tagging-policy \
 							--mode indexed \
-                            --rules azure-policy.json --params tagging-policy.json \
-                            --mode Indexed \
-                            --description "This policy deny if indexed resources in the subscription have no tags"
+                            --description "This policy deny if indexed resources in the subscription have no tags" \
+                            --display-name "Deny the creation of resources without tags" \
+			    --description "This policy deny if indexed resources in the subscription have no tags" \
+			     --rules tagging-policy.json
