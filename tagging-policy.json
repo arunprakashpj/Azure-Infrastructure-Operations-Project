@@ -1,17 +1,27 @@
 {
+  "mode": "Indexed",
+  "displayName": "Deny all resources without a tag",
+  "description": "This policy denies the creation of resources that do not have tags.",
+  "policyRule": {
     "if": {
-      "allOf": [
-        {
-          "field": "type",
-          "equals": "Microsoft.Resources/subscriptions/resourceGroups"
-        },
+      "allof": [
         {
           "field": "[concat('tags[', parameters('tagName'), ']')]",
-          "notEquals": "[parameters('tagValue')]"
+          "equals": "[parameters('tagValue')]"
         }
       ]
     },
     "then": {
       "effect": "deny"
     }
+  },
+  "parameters": {
+    "tagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "webserver-env",
+        "description": "obligatory tag for all resources"
+      }
+    }
   }
+}
