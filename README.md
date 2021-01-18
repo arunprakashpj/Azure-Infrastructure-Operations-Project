@@ -24,7 +24,7 @@ In this project, I have coded a Packer template and a Terraform template to depl
       
 2. Customizing and scaling the webserver
       - The variable ``num_of_vms`` is set to default as 2 at [variable.tf](https://github.com/arunprakashpj/Azure-Infrastructure-Operations-Project/blob/master/terraform/variables.tf). It is scalable, thus feel free to change the number as per your requirement.
-      - Other variables like ``packer_image_name``,``packer_resource_group``,``tags``,``resource_group``,``location`` can also be configured in this file.
+      - Other variables like ``packer_image_name``,``packer_resource_group``,``tags``,``resource_group``,``location`` can also be configured in this [variable.tf](https://github.com/arunprakashpj/Azure-Infrastructure-Operations-Project/blob/master/terraform/variables.tf) file
       
 3. Create and deploy a policy definition to deny the creation of resources that donot have tags 
       - Create the Azure policy definition by running the shell script ``create_az_policy_definition.sh``
