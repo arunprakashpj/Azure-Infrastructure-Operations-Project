@@ -23,13 +23,13 @@ variable "tags" {
   }
 }
 
-/**variable "username" {
+variable "username" {
   description = "Enter username to associate with the machine"
 } 
 
 variable "password" {
   description = "Enter password to use to access the machine"
-}**/
+}
 
 variable "packer_resource_group" {
   description = "Resource group of the Packer image"

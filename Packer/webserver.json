@@ -19,7 +19,7 @@
     "azure_tags": {
       "Name": "hello-world-webserver"
     },
-    "managed_image_resource_group_name": "PolicyRG",
+    "managed_image_resource_group_name": "packer-rg",
     "managed_image_name": "webserverPackerImage",
 
     "location": "North Europe",
