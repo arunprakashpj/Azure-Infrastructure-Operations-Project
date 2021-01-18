@@ -1,32 +1,29 @@
 {
-  "properties": {
-    "displayName": "Require tag and its value",
-    "policyType": "Custom",
-    "mode": "Indexed",
-    "description": "Enforces a required tag and its value. Does not apply to resource groups.",
-    "parameters": {
-      "tagName": {
-        "type": "String",
-        "metadata": {
-          "description": "Name of the tag, such as costCenter"
-        }
-      },
-      "tagValue": {
-        "type": "String",
-        "metadata": {
-          "description": "Value of the tag, such as headquarter"
-        }
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "not": {
+        "field": "[concat('tags[', parameters('tagName'), ']')]",
+        "equals": "[parameters('tagValue')]"
       }
     },
-    "policyRule": {
-      "if": {
-        "not": {
-          "field": "[concat('tags[', parameters('tagName'), ']')]",
-          "equals": "[parameters('tagValue')]"
-        }
-      },
-      "then": {
-        "effect": "deny"
+    "then": {
+      "effect": "deny"
+    }
+  },
+  "parameters": {
+    "tagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "tagName",
+        "description": "Manditory tag for all resources"
+      }
+    },
+    "tagValue": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag Value",
+        "description": "Value of the tag, such as 'production'"
       }
     }
   }
